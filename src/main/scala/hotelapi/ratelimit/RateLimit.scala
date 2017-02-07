@@ -21,14 +21,14 @@ trait RateLimit {
       false
     }
 
+  private def getTTL(key: String) = rateLimitToTTL(getRateLimit(key))
+
   private def getRateLimit(key: String) =
-    if(keyLimits.hasPath(key)) {
+    if (keyLimits.hasPath(key)) {
       keyLimits.getDouble(key)
     } else {
       defaultLimit
     }
 
   private def rateLimitToTTL(rateLimit: Double) = (1000 / rateLimit).toLong
-
-  private def getTTL(key: String) = rateLimitToTTL(getRateLimit(key))
 }

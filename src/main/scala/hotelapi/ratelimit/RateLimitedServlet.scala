@@ -1,6 +1,6 @@
 package hotelapi.ratelimit
 
-import org.scalatra._
+import org.scalatra.ScalatraServlet
 
 trait RateLimitedServlet extends ScalatraServlet with RateLimit {
   before() {
