@@ -1,11 +1,13 @@
 package hotelapi.formatting
 
-import org.json4s.{DefaultFormats, Formats}
+import hotelapi.data.Hotel
+import org.json4s.{DefaultFormats, FieldSerializer, Formats}
 import org.scalatra.ScalatraServlet
 import org.scalatra.json.JacksonJsonSupport
 
 trait JsonServlet extends ScalatraServlet with JacksonJsonSupport {
-  protected implicit val jsonFormats: Formats = DefaultFormats
+  private val hotelSerializer = FieldSerializer[Hotel](FieldSerializer.ignore("city"))
+  protected implicit val jsonFormats: Formats = DefaultFormats + hotelSerializer
 
   before() {
     contentType = formats("json")

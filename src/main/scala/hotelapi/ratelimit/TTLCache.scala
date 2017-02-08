@@ -11,10 +11,10 @@ class TTLCache {
     this
   }
 
-  private def refresh() = keys.retain((key, expirationTime) => expirationTime > System.currentTimeMillis())
-
   def contains(key: String): Boolean = {
     refresh()
     keys.contains(key)
   }
+
+  private def refresh() = keys.retain((key, expiration) => System.currentTimeMillis() < expiration)
 }
