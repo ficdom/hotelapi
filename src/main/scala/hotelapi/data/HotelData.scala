@@ -11,7 +11,8 @@ object HotelData {
     .map(parseCsvLine)
   private val hotelsByCity = hotels.groupBy(_.city)
 
-  def getHotelsByCity: String => Option[List[Hotel]] = hotelsByCity.get
+  def getHotelsByCity(city: String): Option[List[Hotel]] =
+    hotelsByCity.get(city.toLowerCase.capitalize)
 
   private def parseCsvLine(line: String) = line.split(',') match {
     case Array(city, hotelId, roomType, price) =>

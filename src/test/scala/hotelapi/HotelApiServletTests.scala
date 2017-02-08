@@ -79,4 +79,11 @@ class HotelApiServletTests extends ScalatraSuite with FunSuiteLike {
       body should equal("""[{"hotelId":2,"roomType":"Superior","price":2000.0}]""")
     }
   }
+
+  test("Retrieve hotels even when the city name is weirdly cased") {
+    get("/hotels/amSTeRdaM?key=54fea") {
+      status should equal(200)
+      body should equal("""[{"hotelId":2,"roomType":"Superior","price":2000.0}]""")
+    }
+  }
 }
