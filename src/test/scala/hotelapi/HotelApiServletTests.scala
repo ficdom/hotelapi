@@ -39,6 +39,14 @@ class HotelApiServletTests extends ScalatraSuite with FunSuiteLike {
     }
   }
 
+  test("Retrieve hotels with sort param capitalized") {
+    get("/hotels/Bangkok?key=abcdef&sort=DESC") {
+      status should equal(200)
+      body should equal(s"[$bangkokHotel3,$bangkokHotel2,$bangkokHotel1]")
+    }
+  }
+
+
   test("Retrieve hotels from a city nonexistent in DB") {
     get("/hotels/Gdansk?key=123") {
       status should equal(200)
