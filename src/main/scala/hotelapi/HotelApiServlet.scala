@@ -9,8 +9,8 @@ class HotelApiServlet extends RateLimitedServlet with JsonServlet {
   get("/hotels/:city") {
     HotelData.getHotelsByCity(params("city"))
       .map(hotels => params.get("sort") match {
-        case Some("asc") => hotels.sortBy(_.hotelId)
-        case Some("desc") => hotels.sortBy(-_.hotelId)
+        case Some("asc") => hotels.sortBy(_.price)
+        case Some("desc") => hotels.sortBy(-_.price)
         case _ => hotels
       })
   }
