@@ -46,7 +46,6 @@ class HotelApiServletTests extends ScalatraSuite with FunSuiteLike {
     }
   }
 
-
   test("Retrieve hotels from a city nonexistent in DB") {
     get("/hotels/Gdansk?key=123") {
       status should equal(200)

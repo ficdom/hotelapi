@@ -1,6 +1,7 @@
-package hotelapi.formatting
+package hotelapi.utils
 
 import hotelapi.data.Hotel
+import org.json4s.jackson.Serialization.write
 import org.json4s.{DefaultFormats, FieldSerializer, Formats}
 import org.scalatra.ScalatraServlet
 import org.scalatra.json.JacksonJsonSupport
@@ -12,5 +13,7 @@ trait JsonServlet extends ScalatraServlet with JacksonJsonSupport {
   before() {
     contentType = formats("json")
   }
+
+  def toJson[A <: AnyRef](a: A): String = write(a)
 
 }

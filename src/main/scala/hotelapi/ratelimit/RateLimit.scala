@@ -1,8 +1,9 @@
 package hotelapi.ratelimit
 
 import com.typesafe.config.ConfigFactory
+import hotelapi.utils.Logging
 
-trait RateLimit {
+trait RateLimit extends Logging {
   private val config = ConfigFactory.load()
   private val defaultLimit = config.getDouble("defaultRateLimit")
   private val keyLimits = config.getConfig("apiKeysRateLimits")
@@ -12,8 +13,10 @@ trait RateLimit {
 
   def rateLimitExceeded(key: String): Boolean =
     if (suspendedKeys.contains(key)) {
+      log.trace(s"Key $key is suspended. Rejecting the request.")
       true
     } else if (activeKeys.contains(key)) {
+      log.trace(s"Suspending the key=$key for $suspensionDuration ms. Rejecting the request.")
       suspendedKeys.put(key, suspensionDuration)
       true
     } else {
